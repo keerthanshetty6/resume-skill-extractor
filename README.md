@@ -7,15 +7,26 @@ to help candidates tailor their resumes.
 Paste any job description → get a concise summary + list of required skills instantly.
 
 ## Project Structure
+```
 resume-skill-extractor/
-├── data/          # Raw and processed datasets (not tracked in git)
+├── data/                          # Not tracked in git
+│   ├── raw/
+│   │   └── combined_jobs.json     # Combined raw job descriptions
+│   └── processed/
+│       ├── labeled_jobs.json          # Full Gemini-labeled dataset
+│       ├── labeled_jobs_clean.json    # Cleaned dataset (3,050 rows)
+│       ├── labeled_jobs_test.json     # Test run output (5 rows)
+│       └── removed_rows.csv          # Removed junk rows for inspection
 ├── src/
-│   ├── data_prep.py          # Downloads and combines job datasets
-│   ├── generate_labels.py    # Uses Gemini API to extract skills
-│   └── format_data.py        # Formats data for fine-tuning (coming soon)
-├── models/        # Fine-tuned LoRA adapters (not tracked in git)
-├── app.py         # Gradio demo UI (coming soon)
-└── requirements.txt
+│   ├── data_prep.py           # Downloads and combines job datasets
+│   ├── generate_labels.py     # Uses Gemini API to extract skills
+│   ├── labeled_jobs_clean.py  # Cleans and filters labeled dataset
+│   └── available_models.py    # Lists available Gemini models
+├── fine_tuning_pre_trained_LLM.py  # Fine-tuning script (in progress)
+├── app.py                     # Gradio demo UI (coming soon)
+├── requirements.txt
+└── README.md
+```
 
 ## Dataset
 - 3,050 AI/Data Science job descriptions
@@ -24,12 +35,29 @@ resume-skill-extractor/
 
 ## Tech Stack
 - Python, PyTorch, Hugging Face Transformers
-- PEFT (LoRA fine-tuning)
-- Gemini API (dataset labeling)
+- PEFT / LoRA (parameter-efficient fine-tuning)
+- Gemini 2.5 Flash Lite API (dataset labeling)
 - Gradio (demo UI)
+
+## Model
+- Base model: Llama 3 (fine-tuned with LoRA)
+- Training data: 3,050 labeled job descriptions
+- Fine-tuning method: QLoRA (4-bit quantization)
 
 ## Status
 - [x] Data collection and cleaning
 - [x] Label generation with Gemini API
 - [ ] Fine-tuning with LoRA
 - [ ] Gradio demo
+
+## Why I built this
+Most job seekers struggle to tailor their resumes to specific roles. This tool 
+instantly identifies the exact skills a job description is looking for, so 
+candidates know what to highlight.
+
+## Author
+**Keerthan Shetty**  
+[LinkedIn](https://www.linkedin.com/in/keerthanmshetty/) | [Hugging Face](https://huggingface.co/k10shetty)
+
+## License
+MIT License - feel free to use and build on this project.
