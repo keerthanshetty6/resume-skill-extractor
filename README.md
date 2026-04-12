@@ -1,17 +1,39 @@
 # Resume Skill Extractor
 
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0-red)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-yellow)
+![Status](https://img.shields.io/badge/Status-In%20Progress-orange)
+
 An LLM fine-tuned to analyze job descriptions and extract required skills 
 to help candidates tailor their resumes.
 
 ## What it does
 Paste any job description → get a concise summary + list of required skills instantly.
 
+## Example Output
+> **Input:** Senior Data Scientist role at Veeva Systems focusing on NLP pipelines 
+> and large-scale semantic analysis over medical documents...
+
+**Output:**
+```
+Summary: This role involves designing an end-to-end pipeline for extracting 
+information from large-scale unstructured medical documents using NLP and ML. 
+The position requires building semantic search capabilities and working with 
+LLMs on cloud infrastructure.
+
+Required Skills: Python, NLP, PyTorch, Hugging Face Transformers, 
+AWS/GCP/Azure, Docker, Kubernetes, Named Entity Recognition, 
+Semantic Search, Large Language Models
+```
+*(Example from test run — full model coming soon)*
+
 ## Project Structure
 ```
 resume-skill-extractor/
 ├── data/                          # Not tracked in git
 │   ├── raw/
-│   │   └── combined_jobs.json     # Combined raw job descriptions
+│   │   └── combined_jobs.json         # Combined raw job descriptions
 │   └── processed/
 │       ├── labeled_jobs.json          # Full Gemini-labeled dataset
 │       ├── labeled_jobs_clean.json    # Cleaned dataset (3,050 rows)
@@ -30,7 +52,7 @@ resume-skill-extractor/
 
 ## Dataset
 - 3,050 AI/Data Science job descriptions
-- Sources: nathansutton/data-science-job-descriptions + batuhanmtl/job-skill-set
+- Sources: [nathansutton/data-science-job-descriptions](https://huggingface.co/datasets/nathansutton/data-science-job-descriptions) + [batuhanmtl/job-skill-set](https://huggingface.co/datasets/batuhanmtl/job-skill-set)
 - Labels generated using Gemini 2.5 Flash Lite
 
 ## Tech Stack
