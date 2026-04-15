@@ -43,6 +43,7 @@ resume-skill-extractor/
 │   ├── data_prep.py           # Downloads and combines job datasets
 │   ├── generate_labels.py     # Uses Gemini API to extract skills
 │   ├── labeled_jobs_clean.py  # Cleans and filters labeled dataset
+│   ├── inspect_lengths.py     # Analyses token lengths of dataset
 │   ├── available_models.py    # Lists available Gemini models
 │   ├── upload_dataset.py      # Pushes clean dataset to Hugging Face Hub
 |   └── train.py               # Fine-tuning script (in progress)
@@ -64,9 +65,10 @@ resume-skill-extractor/
 - Gradio (demo UI)
 
 ## Model
-- Base model: Llama 3 (fine-tuned with LoRA)
-- Training data: 3,050 labeled job descriptions
-- Fine-tuning method: QLoRA (4-bit quantization)
+- Base model: [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)
+- Training data: 3050 labeled job descriptions
+- Fine-tuning method: QLoRA (4-bit NF4 quantization + LoRA rank 16)
+- Target modules: attention + feed-forward layers
 
 ## Status
 - ✅ Data collection and cleaning
