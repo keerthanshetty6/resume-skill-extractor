@@ -2,8 +2,8 @@ import os
 import argparse
 from dotenv import load_dotenv
 from datasets import load_dataset
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, BitsAndBytesConfig
-from trl import SFTTrainer #Transformers Reinforcement Learning
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig #,TrainingArguments
+from trl import SFTTrainer, SFTConfig #Transformers Reinforcement Learning
 import torch
 import wandb
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model #Parameter-Efficient Fine-Tuning
@@ -129,8 +129,11 @@ model.print_trainable_parameters()
 
 # Training args
 # The control center for how the model learns, uses memory, and saves data.
-training_args = TrainingArguments(
+# NEW IN TRL 1.1.0: SFTConfig replaces TrainingArguments and absorbs the dataset/formatting args.
+training_args = SFTConfig(
     output_dir=OUTPUT_DIR,
+    dataset_text_field="text",          # Tells the trainer to look at the "text" column we created earlier
+    max_seq_length=MAX_SEQ_LEN,         # Enforces the 2048 token limit to prevent memory crashes
     num_train_epochs=3,                               
     per_device_train_batch_size=2,      # 2 rows at a time to prevent VRAM Out-of-Memory crashes.
     gradient_accumulation_steps=4,      # Accumulate math over 4 steps to simulate a stable batch size of 8.
@@ -153,8 +156,6 @@ trainer = SFTTrainer(
     model=model,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
-    dataset_text_field="text",          # Tells the trainer to look at the "text" column we created earlier
-    max_seq_length=MAX_SEQ_LEN,         # Enforces the 2048 token limit to prevent memory crashes
     tokenizer=tokenizer,
     args=training_args,
 )
