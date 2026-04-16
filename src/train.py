@@ -133,7 +133,7 @@ model.print_trainable_parameters()
 training_args = SFTConfig(
     output_dir=OUTPUT_DIR,
     dataset_text_field="text",          # Tells the trainer to look at the "text" column we created earlier
-    max_seq_length=MAX_SEQ_LEN,         # Enforces the 2048 token limit to prevent memory crashes
+    max_length=MAX_SEQ_LEN,             # Enforces the 2048 token limit to prevent memory crashes, Renamed from max_seq_length
     num_train_epochs=3,                               
     per_device_train_batch_size=2,      # 2 rows at a time to prevent VRAM Out-of-Memory crashes.
     gradient_accumulation_steps=4,      # Accumulate math over 4 steps to simulate a stable batch size of 8.
@@ -156,7 +156,7 @@ trainer = SFTTrainer(
     model=model,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
-    tokenizer=tokenizer,
+    processing_class=tokenizer,     # Renamed from tokenizer
     args=training_args,
 )
 
