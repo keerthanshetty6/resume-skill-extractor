@@ -134,9 +134,17 @@ training_args = SFTConfig(
     output_dir=OUTPUT_DIR,
     dataset_text_field="text",          # Tells the trainer to look at the "text" column we created earlier
     max_length=MAX_SEQ_LEN,             # Enforces the 2048 token limit to prevent memory crashes, Renamed from max_seq_length
-    num_train_epochs=3,                               
+    num_train_epochs=3,  
+
+    # Training Memory                             
     per_device_train_batch_size=2,      # 2 rows at a time to prevent VRAM Out-of-Memory crashes.
     gradient_accumulation_steps=4,      # Accumulate math over 4 steps to simulate a stable batch size of 8.
+
+    # Evaluation Memory
+    per_device_eval_batch_size=1,       # Process 1 eval row at a time
+    eval_accumulation_steps=4,          # Offload eval math to CPU to save VRAM
+    prediction_loss_only=True,          # Throw away text predictions immediately, keeping only the loss score
+    
     learning_rate=2e-4,                 
     bf16=True,                          # Use bfloat16 for training stability on modern Ampere GPUs.
     logging_steps=10,                   # Send metrics to Weights & Biases every 10 steps.
