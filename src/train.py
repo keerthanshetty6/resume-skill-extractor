@@ -144,7 +144,7 @@ training_args = SFTConfig(
     save_strategy="epoch",              # Save a checkpoint of the LoRA adapters at the end of every epoch.
     load_best_model_at_end=True,        # Automatically load the smartest checkpoint at the end, not just the last one.
     report_to="wandb",                  # Route all logs to the WandB cloud dashboard.
-    run_name="resume-skill-extractor-v1"
+    run_name="resume-skill-extractor-full-run"
 )
 
 # Train
