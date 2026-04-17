@@ -51,6 +51,14 @@ Analyze this job description and provide a summary and required skills:
 {job_description[:6500]}<|eot_id|>
 <|start_header_id|>assistant<|end_header_id|>
 """
+    prompt = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+You are an expert technical recruiter. Analyze job descriptions and extract key information.<|eot_id|>
+<|start_header_id|>user<|end_header_id|>
+Analyze this job description and provide a summary, the required skills, and the bonus/nice-to-have skills:
+
+{job_description[:6500]}<|eot_id|>
+<|start_header_id|>assistant<|end_header_id|>
+"""
     
     # B. Send text to the GPU
     # pt" creates PyTorch Tensors. .to(model.device) safely moves the text to whatever hardware the model is on (GPU or CPU)
@@ -74,10 +82,27 @@ Analyze this job description and provide a summary and required skills:
         # Split Summary and Skills based on the bold headers we trained it on
         parts = answer_only.split("**Required Skills:**")
         summary_text = parts[0].replace("**Summary:**", "").strip()
-        skills_text = parts[1].strip() if len(parts) > 1 else "Skills format not found."
+        skills_raw = parts[1].strip() if len(parts) > 1 else "Skills format not found."
+
+        # Clean up the asterisk bullets into a readable list
+        if skills_raw != "Skills format not found.":
+            skills_lines = [
+                line.strip().lstrip("*").strip() 
+                for line in skills_raw.split("\n") 
+                if line.strip() and line.strip() != "*"
+            ]
+            # Keep headers (like **Bonus Skills:**) without bullets, but bullet the actual skills
+            skills_text = "\n".join(
+                s if s.startswith("**") else f"• {s}" 
+                for s in skills_lines if s
+            )
+        else:
+            skills_text = skills_raw
+            
     except Exception as e:
         summary_text = "Error parsing model output."
         skills_text = full_response # Fallback to raw text if parsing fails
+
         
     # E. Generate the Visual Word Cloud
 
@@ -146,6 +171,9 @@ demo = gr.Interface(
     ],
     title="🚀 Resume Skill Extractor",
     description="Powered by a custom-trained Llama 3 8B model. Paste any job description to instantly extract the core responsibilities and necessary skills.",
+    examples=[
+        ["We are looking for a Senior Data Scientist to join our ML team. You will build predictive models using Python, PyTorch and SQL. Experience with AWS and Docker required. Knowledge of NLP and transformer architectures is a plus."],
+    ],
     flagging_mode="never"                   # Hides the default "Flag" button Gradio puts on apps
 )
 
