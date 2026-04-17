@@ -51,14 +51,6 @@ Analyze this job description and provide a summary and required skills:
 {job_description[:6500]}<|eot_id|>
 <|start_header_id|>assistant<|end_header_id|>
 """
-    prompt = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-You are an expert technical recruiter. Analyze job descriptions and extract key information.<|eot_id|>
-<|start_header_id|>user<|end_header_id|>
-Analyze this job description and provide a summary, the required skills, and the bonus/nice-to-have skills:
-
-{job_description[:6500]}<|eot_id|>
-<|start_header_id|>assistant<|end_header_id|>
-"""
     
     # B. Send text to the GPU
     # pt" creates PyTorch Tensors. .to(model.device) safely moves the text to whatever hardware the model is on (GPU or CPU)
