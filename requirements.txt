@@ -7,3 +7,6 @@ trl
 wandb
 python-dotenv
 gradio
+wordcloud
+numpy
+matplotlib
