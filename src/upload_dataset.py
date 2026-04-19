@@ -12,7 +12,7 @@ dataset = load_dataset("json", data_files="data/processed/labeled_jobs_clean.jso
 
 # 3. Push to HF
 dataset.push_to_hub(
-    "k10shetty/resume-skill-extractor-dataset",
+    "keerthanshetty/resume-skill-extractor-dataset",
     token=os.environ["HF_TOKEN"]
 )
 

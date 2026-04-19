@@ -23,7 +23,7 @@ args = parser.parse_args()
 # Config 
 HF_TOKEN       = os.environ["HF_TOKEN"]
 BASE_MODEL     = "meta-llama/Meta-Llama-3-8B-Instruct"  # it offers the best ratio of high intelligence to low VRAM usage, and it's already pre-trained to follow instructions. High intelligence, low VRAM, instruction-tuned
-DATASET_ID     = "k10shetty/resume-skill-extractor-dataset" #Dataset on huggingface
+DATASET_ID     = "keerthanshetty/resume-skill-extractor-dataset" #Dataset on huggingface
 OUTPUT_DIR     = "models/fine_tuned_adapters" #Saves ONLY the tiny LoRA weights, not the base model
 MAX_SEQ_LEN    = 2048 #Caps GPU memory usage to prevent Out-Of-Memory (OOM) crashes
 
@@ -180,6 +180,6 @@ tokenizer.save_pretrained(OUTPUT_DIR)
 print(f"\nAdapters saved to {OUTPUT_DIR}")
 
 # Push adapters to Hugging Face
-trainer.model.push_to_hub("k10shetty/resume-skill-extractor-lora", token=HF_TOKEN)
-tokenizer.push_to_hub("k10shetty/resume-skill-extractor-lora", token=HF_TOKEN)
+trainer.model.push_to_hub("keerthanshetty/resume-skill-extractor-lora", token=HF_TOKEN)
+tokenizer.push_to_hub("keerthanshetty/resume-skill-extractor-lora", token=HF_TOKEN)
 print("Pushed to Hugging Face!")

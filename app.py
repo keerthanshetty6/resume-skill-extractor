@@ -13,7 +13,7 @@ print("Loading model and adapters")
 
 BASE_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct"
 # You can also change this to "models/fine_tuned_adapters" if you want to use your local folder
-ADAPTER_PATH = "k10shetty/resume-skill-extractor-lora" 
+ADAPTER_PATH = "keerthanshetty/resume-skill-extractor-lora" 
 
 # We must load the model in 4-bit, exactly as we did during training
 bnb_config = BitsAndBytesConfig(

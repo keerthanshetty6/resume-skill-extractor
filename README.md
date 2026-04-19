@@ -68,7 +68,7 @@ resume-skill-extractor/
 ### 1. Dataset
 - Combined 3,050 AI/Data Science job descriptions from two sources
 - Used **Gemini 2.5 Flash Lite API** to automatically generate labels (summary + required skills) for each row
-- Hosted on Hugging Face: [k10shetty/resume-skill-extractor-dataset](https://huggingface.co/datasets/k10shetty/resume-skill-extractor-dataset)
+- Hosted on Hugging Face: [keerthanshetty/resume-skill-extractor-dataset](https://huggingface.co/datasets/keerthanshetty/resume-skill-extractor-dataset)
 
 ### 2. Fine-Tuning
 - Base model: [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)
@@ -78,8 +78,8 @@ resume-skill-extractor/
 - Training: 3 epochs, ~1,000 steps loss reduced from 2.2 → 1.0
 
 ### 3. Models on Hugging Face
-- LoRA Adapters: [k10shetty/resume-skill-extractor-lora](https://huggingface.co/k10shetty/resume-skill-extractor-lora)
-- Merged Model: [k10shetty/resume-skill-extractor-merged](https://huggingface.co/k10shetty/resume-skill-extractor-merged)
+- LoRA Adapters: [keerthanshetty/resume-skill-extractor-lora](https://huggingface.co/keerthanshetty/resume-skill-extractor-lora)
+- Merged Model: [keerthanshetty/resume-skill-extractor-merged](https://huggingface.co/keerthanshetty/resume-skill-extractor-merged)
 
 ## Tech Stack
 - **Fine-tuning:** PyTorch, Hugging Face Transformers, PEFT, TRL
@@ -110,7 +110,7 @@ candidates know exactly what to highlight.
 
 ## Author
 **Keerthan Shetty**  
-[LinkedIn](https://www.linkedin.com/in/keerthanmshetty/) | [Hugging Face](https://huggingface.co/k10shetty)
+[LinkedIn](https://www.linkedin.com/in/keerthanmshetty/) | [Hugging Face](https://huggingface.co/keerthanshetty)
 
 ## License
 MIT License - feel free to use and build on this project.

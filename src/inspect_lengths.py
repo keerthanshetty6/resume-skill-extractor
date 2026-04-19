@@ -1,7 +1,7 @@
 import pandas as pd
 from datasets import load_dataset
 
-DATASET_ID = "k10shetty/resume-skill-extractor-dataset"
+DATASET_ID = "keerthanshetty/resume-skill-extractor-dataset"
 
 def main():
     print(f"Loading dataset directly from Hugging Face: {DATASET_ID}...\n")

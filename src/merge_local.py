@@ -12,7 +12,7 @@ if not hf_token:
 
 # ── 1. Config & Defensive Hardware Checks ──────────────────────────────────
 BASE_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct"
-ADAPTER_REPO = "k10shetty/resume-skill-extractor-lora"
+ADAPTER_REPO = "keerthanshetty/resume-skill-extractor-lora"
 OUTPUT_DIR = "./merged-model"
 
 # ✅ Safer dtype fallback (prevents rare crashes on older GPUs like T4)
